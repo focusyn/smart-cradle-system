@@ -4,14 +4,14 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCXHDKTbbanjpOn-SyZmVvz40rw3Ucq4mA",
-  authDomain: "smart-cradle-7a72f.firebaseapp.com",
-  databaseURL: "https://smart-cradle-7a72f-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "smart-cradle-7a72f",
-  storageBucket: "smart-cradle-7a72f.appspot.com",
-  messagingSenderId: "269372880664",
-  appId: "1:269372880664:web:f0a33d2bf33736c093106d",
-  measurementId: "G-03KYC8TFY5"
+  apiKey: "AIzaSyC3pUlSuLkdoeauC0HAK54zNFYMCUv23Mg",
+  authDomain: "smart-cradle-1b9d9.firebaseapp.com",
+  databaseURL:
+    "https://smart-cradle-1b9d9-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "smart-cradle-1b9d9",
+  storageBucket: "smart-cradle-1b9d9.appspot.com",
+  messagingSenderId: "885747873049",
+  appId: "1:885747873049:web:3cf848063b0c6067918188",
 };
 
 const app = initializeApp(firebaseConfig);
