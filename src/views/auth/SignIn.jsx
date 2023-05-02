@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import InputField from "~/components/fields/InputField";
-import { FcGoogle } from "react-icons/fc";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
-import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
 
 export default function SignIn() {
@@ -16,12 +14,10 @@ export default function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    try {
-      localStorage.setItem("user", JSON.stringify({ email, password }));
+    localStorage.setItem("user", JSON.stringify(new Date().toLocaleString()));
+    await setTimeout(() => {
       navigate("/admin/home");
-    } catch (err) {
-      console.log(err);
-    }
+    }, 2000);
     setLoading(false);
   };
 
@@ -32,10 +28,7 @@ export default function SignIn() {
     ) {
       navigate("/admin/home");
     }
-  }, [
-    localStorage.getItem("user") && localStorage.getItem("user") !== "null",
-    navigate,
-  ]);
+  }, []);
 
   return (
     <div className="mb-16 flex h-full w-full items-center justify-center px-2 md:mx-0 md:px-0 lg:mb-10 lg:items-center lg:justify-start">

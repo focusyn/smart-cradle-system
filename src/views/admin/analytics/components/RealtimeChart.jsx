@@ -64,7 +64,7 @@ export default function ReactimeChart(props) {
       <div className="flex flex-row justify-between px-3 pt-2">
         <div>
           <h4 className="text-lg font-bold text-navy-700 dark:text-white">
-            Weight: {props.data[props.data.length - 1]}g
+            Weight: {props.weight}g
           </h4>
         </div>
       </div>

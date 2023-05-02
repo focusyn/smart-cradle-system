@@ -10,20 +10,31 @@ import { Toaster } from "react-hot-toast";
 import AdminLayout from "~/layouts/admin";
 import AuthLayout from "~/layouts/auth";
 import ProtectedRoute from "./utils/ProtectedRoute";
+import { Notifications } from "react-push-notification";
 
 export default function App() {
-  const action = useNavigationType();
-  const location = useLocation();
-  const pathname = location.pathname;
+  const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
-    if (action !== "POP") {
-      localStorage.removeItem("user");
+    const date = new Date();
+    const currentDate = date.toLocaleDateString();
+    const currentTime = date.toLocaleTimeString();
+    const currentDateTime = `${currentDate} ${currentTime}`;
+    const userDateTime = user;
+
+    if (userDateTime) {
+      const diff = Math.abs(new Date(currentDateTime) - new Date(userDateTime));
+      const minutes = Math.floor(diff / 1000 / 60);
+      console.log(minutes);
+      if (minutes > 60) {
+        localStorage.removeItem("user");
+      }
     }
-  }, [action, pathname]);
+  }, []);
   localStorage.setItem("darkmode", "true");
   return (
     <>
+      <Notifications />
       <Toaster position="top-right" reverseOrder={false} />
       <Routes>
         <Route path="auth/*" element={<AuthLayout />} />
