@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
-import PieChartCard from "~/views/admin/analytics/components/PieChartCard";
 import { FaTemperatureLow } from "react-icons/fa";
 import { WiHumidity } from "react-icons/wi";
 import { RiPlantFill } from "react-icons/ri";
 import Widget from "~/components/widget/Widget";
 import Card from "~/components/card";
-import Slider from "@mui/material/Slider";
 import { AiOutlinePoweroff } from "react-icons/ai";
 import { ref, onValue, update } from "firebase/database";
 import { RTDB } from "~/Firebase";
@@ -13,15 +11,6 @@ import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import GaugeChart from "react-gauge-chart";
 import ServerSendData from "./components/ServerSendData";
-import addNotification from "react-push-notification";
-
-function valuetext(value) {
-  return `${value} ms`;
-}
-
-function valueLabelFormat(value) {
-  return `${value} ms`;
-}
 
 export default function Analytics() {
   const { t } = useTranslation();
@@ -57,75 +46,6 @@ export default function Analytics() {
     });
   };
 
-  const checkMotion = () => {
-    if (motion !== 1) {
-      addNotification({
-        title: "Motion detected!",
-        subtitle: "Motion detected!",
-        message: "Someone is in the room!",
-        theme: "darkblue",
-        native: true, // when using native, your OS will handle theming.
-      });
-    }
-  };
-
-  const checkMoisture = () => {
-    if (moisture > 50) {
-      addNotification({
-        title: "Moisture level is high!",
-        subtitle: "Moisture level is high!",
-        message: "Please check the baby!",
-        theme: "darkblue",
-        native: true, // when using native, your OS will handle theming.
-      });
-    }
-  };
-
-  const checkTemperature = () => {
-    if (temperature > 35) {
-      addNotification({
-        title: "Temperature is high!",
-        subtitle: "Temperature is high!",
-        message: "Please check the baby!",
-        theme: "darkblue",
-        native: true, // when using native, your OS will handle theming.
-      });
-    }
-    if (temperature < 15) {
-      addNotification({
-        title: "Temperature is low!",
-        subtitle: "Temperature is low!",
-        message: "Please check the baby!",
-        theme: "darkblue",
-        native: true, // when using native, your OS will handle theming.
-      });
-    }
-  };
-
-  const checkSound = () => {
-    if (soundLevel > 125) {
-      addNotification({
-        title: "Sound level is high!",
-        subtitle: "Sound level is high!",
-        message: "Baby is crying!",
-        theme: "darkblue",
-        native: true, // when using native, your OS will handle theming.
-      });
-    }
-  };
-
-  const checkWeight = () => {
-    if (weight < 10) {
-      addNotification({
-        title: "Weight is low!",
-        subtitle: "Weight is low!",
-        message: "Please check the baby!",
-        theme: "darkblue",
-        native: true, // when using native, your OS will handle theming.
-      });
-    }
-  };
-
   const toggleServo = () => {
     toast.success("Servo is " + (swing ? "OFF" : "ON"));
     setLoading(true);
@@ -156,14 +76,6 @@ export default function Analytics() {
       clearInterval();
     };
   }, []);
-
-  useEffect(() => {
-    checkMotion();
-    checkMoisture();
-    checkTemperature();
-    checkSound();
-    checkWeight();
-  }, [motion, moisture, temperature, soundLevel, weight]);
 
   return (
     <div className="mt-5 mb-10">
@@ -255,23 +167,12 @@ export default function Analytics() {
             nrOfLevels={20}
             percent={soundLevel / 255}
             needleColor="red"
-            textColor="white"
+            textColor="black"
             formatTextValue={(value) => {
               return value + " W/m2";
             }}
           />
         </Card>
-        {/* <Widget
-          icon={<BsMoisture className="h-7 w-7" />}
-          title={t("water_level")}
-          subtitle={soundLevel + " %"}
-        /> */}
-      </div>
-
-      <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-2">
-        <div className="grid grid-cols-1 gap-5 rounded-[20px] md:grid-cols-2">
-          <PieChartCard />
-        </div>
       </div>
     </div>
   );
